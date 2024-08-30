@@ -1,0 +1,74 @@
+2024-1-30 Release Notes
+    * 1.3 Released
+    * Avoid overwriting CMAKE_CXX_FLAGS.
+    * Added a `schedule_move_only` interface to Executor.
+    * Added support for CMake 3.27 and up for building C++20 module.
+    * Added `ResumeBySchedule` interface for `Future`.
+    * Added support for cmake find_package.
+
+2023-8-17 Release Notes
+    * 1.2 Released
+    * Added a version number to libasync_simple.so in CMakeScripts.
+    * Added sharedMutex
+    * Added chore(bazel) async_simple_dependencies
+    * Added `dispatch(Executor*)` helper function to schedule the current
+      Lazy corotuine to another executor.
+    * Added a limit that we can only `co_await` a Lazy in a Lazy Function.
+    * Added an explicit requirement that the alignment of `T` in `Lazy<T>`
+      can't exceed `alignof(std::max_align_t)` (which 16 generally) due to
+      a language defect.
+    * Added lazy_local features so that the users can specify the LazyLocal
+      data across the Lazy Calling chain.
+    * Improved experimenting modules support.
+    * Improved cmake support for msvc
+    * Introduced xmake support for modules building.
+    * Optimized FutureAwaiter so that we can reduce the scheduling time when
+      we `co_await` a `async_simple::Future`. The semantics remains the same.
+    * Removed SimpleIOExecutor and SimpleExecutor from async_simple since they
+      are for testing only and we encourage people to use their own executors
+      for their own situations.
+
+2023-4-23  Release Notes
+    * 1.1 Released
+    * SimpleExecutor will execute all the scheduled task before destructing
+    * `co_await` a lvalue Future is deprected now. We should move the future
+    explicitly before `co_await`.
+    * Use std::variant instead of union in Try
+    * Provided future<void> and promise<void>
+    * Added `value()` and `index()` interfaces to `CollectAnyResult`
+    * Added `future::then` interface
+    * Added `coro::Latch`
+    * Added `coro::Semaphore`
+    * Added Generator
+    * Added start_switch_fiber and finish_switch_fiber for uthread to enable address sanitizer
+    * Force RescheduleLazy to be allowed in DetachedCoroutine only
+    * Added C++20 modules support
+    * Added the second version of uthread::async
+    * Added Mutex benchmark
+    * Added SpinLock benchmark
+    * Added multiple core echo server example
+    * Added AsioCallbackAwaiter
+    * Added ppc64_le support for uthread
+    * Improved bazel support
+    * Added support for macos
+    * Added support for windows
+    * Added ubuntu and centos7 Dockerfile
+    * Fixed several compile failures
+
+
+2022-11-11
+    * SimpleExecutor will execute all the scheduled task before destructing
+    * `co_await` a lvalue Future is deprected now. We should move the future
+    explicitly before `co_await`. 
+
+2022-10-31 Release Notes
+    * 1.0 Released
+    * Add conan support
+    * Add bazel support
+    * make uthread portable to linux/PPC, Darwin/X86 and Darwin/Aarch64
+    * Verified Windows Support
+    * Add FutureAwaiter
+    * Add option to disable unstable libaio
+    * Support dbg scripts for coroutines and document for debugging
+    * Enable to use coroutine components under std directly
+    * Add multiple core demo examples
